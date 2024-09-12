@@ -4,7 +4,7 @@ import { db } from '../db'
 import { goalCompletions, goals } from '../db/schema'
 
 export async function getWeekPendingGoals() {
-  const fistDayOfWeek = dayjs().startOf('week').toDate()
+  const firstDayOfWeek = dayjs().startOf('week').toDate()
   const lastDayOfWeek = dayjs().endOf('week').toDate()
 
   const goalsCreatedUpToWeek = db.$with('goals_created_up_to_week').as(
@@ -28,7 +28,7 @@ export async function getWeekPendingGoals() {
       .from(goalCompletions)
       .where(
         and(
-          gte(goalCompletions.createdAt, fistDayOfWeek),
+          gte(goalCompletions.createdAt, firstDayOfWeek),
           lte(goalCompletions.createdAt, lastDayOfWeek)
         )
       )
